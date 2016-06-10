@@ -1,0 +1,24 @@
+{
+  "name": "to-be-named",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/popey456963/to-be-named.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/popey456963/to-be-named/issues"
+  },
+  "homepage": "https://github.com/popey456963/to-be-named#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "lodash": "^4.13.1",
+    "mkdirp": "^0.5.1"
+  }
+}
