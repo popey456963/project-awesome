@@ -1,0 +1,59 @@
+/* the following two mixins are from http://zerosixthree.se/8-sass-mixins-you-must-have-in-your-toolbox/ */
+
+@mixin transition($args...) {
+    -webkit-transition: $args;
+       -moz-transition: $args;
+        -ms-transition: $args;
+         -o-transition: $args;
+            transition: $args;
+}
+
+@mixin transform($args...) {
+    -webkit-transform: $args;
+       -moz-transform: $args;
+        -ms-transform: $args;
+         -o-transform: $args;
+            transform: $args;
+}
+
+@mixin transform-origin($args...) {
+    -webkit-transform-origin: $args;
+       -moz-transform-origin: $args;
+        -ms-transform-origin: $args;
+         -o-transform-origin: $args;
+            transform-origin: $args;
+}
+
+/* the following two mixins are from http://joshbroton.com/quick-fix-sass-mixins-for-css-keyframe-animations/ */
+
+@mixin animation($animate...){
+	$max: length($animate);
+	$animations: "";
+
+	@for $i from 1 through $max {
+		$animations: #{$animations + nth($animate, $i)};
+
+		@if $i < $max {
+			$animations: #{$animations + ", "};
+		}
+	}
+	-webkit-animation: $animations;
+	   -moz-animation: $animations;
+	    -ms-animation: $animations;
+	     -o-animation: $animations;
+	     	animation: $animations;
+}
+
+@mixin keyframes($animationName) {
+	@-webkit-keyframes #{$animationName} { @content; }
+	   @-moz-keyframes #{$animationName} { @content; }
+	     @-o-keyframes #{$animationName} { @content; }
+	        @keyframes #{$animationName} { @content; }
+}
+
+@mixin linear-gradient($args...){
+	background: $orange;
+	background: -webkit-linear-gradient($args);
+	background:    -moz-linear-gradient($args);
+	background:         linear-gradient($args);
+}

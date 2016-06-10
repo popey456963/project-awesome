@@ -1,0 +1,139 @@
+/* the following two mixins are from http://zerosixthree.se/8-sass-mixins-you-must-have-in-your-toolbox/ */
+/* the following two mixins are from http://joshbroton.com/quick-fix-sass-mixins-for-css-keyframe-animations/ */
+body {
+  overflow: hidden; }
+
+.hide {
+  display: none; }
+
+.container {
+  margin-top: 25%; }
+
+.option.hidden {
+  -webkit-animation: slide-down 0.4s ease-in-out forwards;
+  -moz-animation: slide-down 0.4s ease-in-out forwards;
+  -ms-animation: slide-down 0.4s ease-in-out forwards;
+  -o-animation: slide-down 0.4s ease-in-out forwards;
+  animation: slide-down 0.4s ease-in-out forwards; }
+.option:not(.hidden) {
+  -webkit-animation: slide-up 0.4s ease-in-out forwards;
+  -moz-animation: slide-up 0.4s ease-in-out forwards;
+  -ms-animation: slide-up 0.4s ease-in-out forwards;
+  -o-animation: slide-up 0.4s ease-in-out forwards;
+  animation: slide-up 0.4s ease-in-out forwards; }
+
+.code {
+  color: #512DA8;
+  background: #fff;
+  border: 1px solid #ececec;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px; }
+
+@-webkit-keyframes slide-down {
+  from {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); } }
+@-moz-keyframes slide-down {
+  from {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); } }
+@-o-keyframes slide-down {
+  from {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); } }
+@keyframes slide-down {
+  from {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  to {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); } }
+@-webkit-keyframes slide-up {
+  from {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); }
+  to {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+@-moz-keyframes slide-up {
+  from {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); }
+  to {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+@-o-keyframes slide-up {
+  from {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); }
+  to {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+@keyframes slide-up {
+  from {
+    -webkit-transform: translateY(200vh);
+    -moz-transform: translateY(200vh);
+    -ms-transform: translateY(200vh);
+    -o-transform: translateY(200vh);
+    transform: translateY(200vh); }
+  to {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+
+/*# sourceMappingURL=custom.css.map */

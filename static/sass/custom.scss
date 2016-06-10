@@ -1,0 +1,52 @@
+@import "_mixins.scss";
+
+$pink: #512DA8;
+
+body {
+	overflow: hidden;
+}
+
+.hide {
+	display: none;
+}
+
+.container {
+	margin-top: 25%;
+}
+
+.option {
+	&.hidden {
+		@include animation(slide-down 0.4s ease-in-out forwards);
+	}
+	&:not(.hidden) {
+		@include animation(slide-up 0.4s ease-in-out forwards);
+	}
+}
+
+.code {
+	color: $pink;
+	background: #fff;
+	border: 1px solid #ececec;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 5px;
+}
+
+@include keyframes(slide-down) {
+	from {
+		@include transform(translateY(0));		
+	}
+	to {
+		@include transform(translateY(200vh));
+	}
+}
+
+@include keyframes(slide-up) {
+	from {
+		@include transform(translateY(200vh));
+	}
+	to {
+		@include transform(translateY(0));
+	}
+}

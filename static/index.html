@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Basic Page Needs
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+		<meta charset="utf-8">
+		<title>AwesomeProject</title>
+		<meta name="description" content="Bored with taking ages to generate your app environments? Do it automatically here!">
+		<meta name="author" content="Alexander Craggs and Finnian Anderson">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/skeleton.css">
+		<link rel="stylesheet" type="text/css" href="css/custom.css">
+		<link rel="icon" type="image/png" href="images/favicon.png">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<h5 class="hide" id="title">Select your <span id="project-option" class="code">project name</span> for <span id="project-name" class="code"></span></h5>
+			</div>
+			<div class="row">
+				<form>
+					<div class="twelve columns option" data-option="name" data-index="1">
+						<label for="projectName">Project name</label>
+						<input class="u-full-width" type="text" placeholder="AwesomeProject">
+					</div>
+					<div class="twelve columns option hidden hide" data-option="platform" data-index="2">
+						<label for="platform">App platform</label>
+						<select class="u-full-width" id="platform">
+							<option value="node" selected>Node.js</option>
+							<option value="django">Django</option>
+						</select>
+					</div>
+					<div class="twelve columns option hidden hide" data-option="engine" data-index="3">
+						<label for="engine">Engine</label>
+						<select class="u-full-width" id="engine">
+							<option value="express" selected>Express.js</option>
+						</select>
+					</div>
+					<div class="twelve columns option hidden hide" data-option="database" data-index="4">
+						<label for="database">Database</label>
+						<select class="u-full-width" id="database">
+							<option value="mongo" selected>MongoDB</option>
+							<option value="redis">Redis</option>
+							<option value="mysql">MySQL</option>
+							<option value="postgresql">PostgreSQL</option>
+							<option value="sqlite">SQLite</option>
+						</select>
+					</div>
+					<div class="twelve columns option hidden hide" data-option="js-frameworks" data-index="5">
+						<label for="js-frameworks">Optional JS frameworks</label>
+						<select class="u-full-width" id="js-frameworks">
+							<option value="" selected>--</option>
+							<option value="jquery">jQuery</option>
+							<option value="react">React</option>
+							<option value="angular">AngularJS</option>
+						</select>
+					</div>
+					<div class="twelve columns option hidden hide" data-option="css-frameworks" data-index="6">
+						<label for="css-frameworks">Optional CSS frameworks</label>
+						<select class="u-full-width" id="css-frameworks">
+							<option value="" selected>--</option>
+							<option value="materialize">Materialize</option>
+							<option value="bootstrap">Bootstrap</option>
+						</select>
+					</div>
+					<div class="twelve columns option hidden hide" data-option="testing-utilities" data-index="7">
+						<label for="testing-utilities">Optional testing utilities</label>
+						<select class="u-full-width" id="testing-utilities">
+							<option value="" selected>--</option>
+							<option value="mocha">Mocha</option>
+							<option value="jasmine">Jasmine</option>
+						</select>
+					</div>
+					<div class="twelve columns option hidden hide" data-option="auth-system" data-index="8">
+						<label for="auth-system">Optional authentication system</label>
+						<select class="u-full-width" id="auth-system">
+							<option value="" selected>--</option>
+							<option value="passport">PassportJS</option>
+						</select>
+					</div>
+					<div class="twelve columns option hidden hide" data-index="9">
+						<h4>All done! Download your prebuilt package at <a  id="package" href="">the veil of generousity</a></h4>
+					</div>
+					<input class="button-primary" type="submit" value="Submit">
+				</form>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.0.0.min.js"></script>
+	<script src="js/main.js"></script>
+</html>
