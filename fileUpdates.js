@@ -3,7 +3,8 @@ exports.allowed = [
 ]
 
 exports.node = [
-  '.gitignore',
-  'index.js',
-  'package.json'
+  '/node/.gitignore',
+  '/node/index.js',
+  '/node/package.json',
+  '/node/example/folders/package.json'
 ]

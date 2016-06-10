@@ -1,0 +1,30 @@
+{
+  "name": "ProjectAwesome",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-name/git-repo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/your-name/git-repo/issues"
+  },
+  "homepage": "https://github.com/your-name/git-repo#readme",
+  "dependencies": {
+╔══▓express▓══╗
+    "express": "^4.13.4",
+╚══▓express▓══╝
+╔══▓lodash▓▓══╗
+    "lodash": "^4.13.1",
+╚══▓lodash▓▓══╝
+╔══▓node▓▓▓▓══╗
+    "node": "^9.99.9"
+╚══▓node▓▓▓▓══╝
+  }
+}
