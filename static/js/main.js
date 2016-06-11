@@ -16,6 +16,7 @@ $(function() {
 		if (thisOption.data("index") == "8") last = true;
 
 		if (thisOption.data("index") == "1") {
+			$("#title").html('Select your <span id="project-option" class="code">project name</span> for <span id="project-name" class="code"></span>')
 			$("#title").show().fadeIn(200);
 			$("#project-name").fadeOut(200, function() {
 				$(this).text(input.val()).fadeIn(200);
@@ -37,7 +38,7 @@ $(function() {
 			}, 400);
 		})(parent);
 
-		nextOption.toggleClass("hidden").toggleClass("hide");
+		nextOption.toggleClass("hide").toggleClass("hidden");
 		$(".button-primary").focus();
 
 		if (last) {

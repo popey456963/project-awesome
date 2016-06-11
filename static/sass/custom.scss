@@ -11,7 +11,7 @@ body {
 }
 
 .container {
-	margin-top: 25%;
+	margin-top: calc((100vh - 134px) / 2);
 }
 
 .option {
@@ -20,6 +20,9 @@ body {
 	}
 	&:not(.hidden) {
 		@include animation(slide-up 0.4s ease-in-out forwards);
+	}
+	 label {
+		display: none;
 	}
 }
 
@@ -31,6 +34,10 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 	border-radius: 5px;
+}
+
+.text-center {
+	text-align: center;
 }
 
 @include keyframes(slide-down) {

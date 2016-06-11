@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- Basic Page Needs
-		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<meta charset="utf-8">
 		<title>AwesomeProject</title>
 		<meta name="description" content="Bored with taking ages to generate your app environments? Do it automatically here!">
@@ -16,11 +14,11 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row">
-				<h5 class="hide" id="title">Select your <span id="project-option" class="code">project name</span> for <span id="project-name" class="code"></span></h5>
+			<div class="row text-center">
+				<h5 id="title">Select your <span id="project-option" class="code">project name</span></h5>
 			</div>
-			<div class="row">
-				<form>
+			<form>
+				<div class="row">
 					<div class="twelve columns option" data-option="name" data-index="1">
 						<label for="projectName">Project name</label>
 						<input class="u-full-width" type="text" placeholder="AwesomeProject">
@@ -83,11 +81,16 @@
 					<div class="twelve columns option hidden hide" data-index="9">
 						<h4>All done! Download your prebuilt package at <a  id="package" href="">the veil of generousity</a></h4>
 					</div>
-					<input class="button-primary" type="submit" value="Next">
-				</form>
-			</div>
+				</div>
+				<div class="row">
+					<div class="twelve columns text-center">
+						<input class="button-primary" type="submit" value="Next"  style="position: absolute;">
+					</div>
+				</div>
+			</form>
 		</div>
 	</body>
 	<script src="js/jquery-3.0.0.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="http://localhost:8001/vogue-client.js"></script>
 </html>
