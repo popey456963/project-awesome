@@ -9,16 +9,24 @@ var app = express()
 var fileUpdates = require('./fileUpdates.js')
 
 app.use(express.static('static'))
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false })) // to support JSON-encoded bodies
 
-app.get('/getApp', function (req, res) {
-  handleRequest(req.query, function(url) {
+app.post('/getApp', function (req, res) {
+  for (k in req.body){
+    if (req.body[k] === 'true' || req.body[k] === 'false'){
+      req.body[k] = Boolean(req.body[k])
+    }
+  }
+  handleRequest(req.body, function(url) {
+    console.log("/archives/" + url + ".zip")
     res.send(url)
   })
   
 })
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('ProjectAwesome app listening on port 3000!')
 })
 
 function handleRequest(query, callback) {
@@ -29,7 +37,7 @@ function handleRequest(query, callback) {
           staticTemplate(query, location, function() {
             zipFile(location, function() {
               removeOldFolder(location, function() {
-                callback(location + "<br />" + JSON.stringify(fileList))
+                callback("archives/" + location + ".zip")
               })
             })
           })
@@ -46,6 +54,7 @@ function staticTemplate(query, location, callback) {
       filesToStatic = _.union(filesToStatic, fileUpdates[query[item] + "Static"])
     }
   }
+  callback()
 }
 
 function removeOldFolder(location, callback) {
@@ -143,7 +152,7 @@ function makeFileList(query, callback) {
   var fileList = []
   for (field in query) {
     if (_.includes(fileUpdates.allowed, field)) {
-      if (query[field] == "true") {
+      if (query[field]) {
         if (_.has(fileUpdates, field)) {
           fileList = _.union(fileList, fileUpdates[field])
         }
