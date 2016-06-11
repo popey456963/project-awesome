@@ -8,3 +8,5 @@ exports.node = [
   '/node/package.json',
   '/node/example/folders/package.json'
 ]
+
+exports.nodeStatic = []

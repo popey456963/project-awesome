@@ -26,15 +26,26 @@ function handleRequest(query, callback) {
     makeFileList(query, function(fileList) {
       moreDirectoryHandling(fileList, location, function() {
         fileTemplatingMaster(fileList, location, query, function() {
-          zipFile(location, function() {
-            removeOldFolder(location, function() {
-              callback(location + "<br />" + JSON.stringify(fileList))
+          staticTemplate(query, location, function() {
+            zipFile(location, function() {
+              removeOldFolder(location, function() {
+                callback(location + "<br />" + JSON.stringify(fileList))
+              })
             })
           })
         })
       })
     })
   })
+}
+
+function staticTemplate(query, location, callback) {
+  var filesToStatic = []
+  for(item in query) {
+    if(query[item]) {
+      filesToStatic = _.union(filesToStatic, fileUpdates[query[item] + "Static"])
+    }
+  }
 }
 
 function removeOldFolder(location, callback) {
