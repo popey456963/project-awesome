@@ -1,4 +1,5 @@
 var express = require('express')
+var bodyParser = require('body-parser')
 var mkdirp = require('mkdirp')
 var _ = require('lodash')
 var EasyZip = require('easy-zip').EasyZip
@@ -9,28 +10,36 @@ var app = express()
 var fileUpdates = require('./fileUpdates.js')
 
 app.use(express.static('static'))
+app.use(bodyParser.json());
 
-app.get('/getApp', function (req, res) {
-  handleRequest(req.query, function(url) {
+app.post('/getApp', function (req, res) {
+  for (k in req.body){
+    if (req.body[k] === 'true' || req.body[k] === 'false'){
+      req.body[k] = Boolean(req.body[k])
+    }
+  }
+  generatePackage(req.body, function(url) {
     res.send(url)
   })
-  
 })
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
 
-function handleRequest(query, callback) {
-  makeInitialDirectory(function(location) {
+var START_BLOCK = "╔══▓"
+var END_BLOCK =   "╚══▓"
+
+function generatePackage(query, callback) {
+  createDirectory(function(identifier) {
+    console.log("Identifier: " + identifier)
     makeFileList(query, function(fileList) {
-      moreDirectoryHandling(fileList, location, function() {
-        fileTemplatingMaster(fileList, location, query, function() {
-          staticTemplate(query, location, function() {
-            zipFile(location, function() {
-              removeOldFolder(location, function() {
-                callback(location + "<br />" + JSON.stringify(fileList))
-              })
+      console.log("File List:  " + JSON.stringify(fileList))
+      createSubdirectories(fileList, identifier, function() {
+        templateController(fileList, identifier, query, function() {
+          compressFile(identifier, function() {
+            removeTempFiles(identifier, function() {
+              callback(identifier)
             })
           })
         })
@@ -39,111 +48,27 @@ function handleRequest(query, callback) {
   })
 }
 
-function staticTemplate(query, location, callback) {
-  var filesToStatic = []
-  for(item in query) {
-    if(query[item]) {
-      filesToStatic = _.union(filesToStatic, fileUpdates[query[item] + "Static"])
-    }
-  }
+function generateUniqueIdentifier() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+
+  for(var i=0; i<16; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length))
+  return text
 }
 
-function removeOldFolder(location, callback) {
-  rimraf("./storage/" + location, callback)
-}
-
-function zipFile(location, callback) {
-  var zip = new EasyZip()
-  zip.zipFolder('./storage/' + location, function() {
-    zip.writeToFile('./static/archives/' + location + ".zip")
+function createDirectory(callback) {
+  var identifier = generateUniqueIdentifier()
+  mkdirp('./storage/' + identifier, function(err) { 
+    callback(identifier)
   })
-  callback()
-}
-
-function fileTemplatingMaster(fileList, location, query, callback) {
-  for(file in fileList) {
-    fileTemplater(fileList[file], location, query)
-  }
-  callback()
-}
-
-function fileTemplater(file, location, query) {
-  var success = false
-  try {
-    var contents = fs.readFileSync('./templates' + file).toString()
-    success = true
-  } catch(e) {
-    if (e.code == "ENOENT") {
-      console.log("File doesn't exist: " + './templates' + file)
-    } else {
-      console.log("Unknown error occured whilst templating" + './templates' + file)
-    }
-  }
-  if (success) {
-    fs.closeSync(fs.openSync('./storage/' + location + "/" + file.replace('/node/', ''), 'w'));
-    var fileLines = contents.match(/[^\r\n]+/g)
-    currentRestrictions = []
-
-    for(lineNo in fileLines) {
-      line = fileLines[lineNo]
-      if(line.substring(0, 4) == "╔══▓") {
-        name = line.split("▓")[1]
-        currentRestrictions.push(name)
-      } else if(line.substring(0, 4) == "╚══▓") {
-        name = line.split("▓")[1]
-        index = currentRestrictions.indexOf(name)
-        if(index > -1) {
-          currentRestrictions.splice(index, 1);
-        } else {
-          console.log("We tried to go out from " + name + " but we couldn't!  It wasn't there.")
-        }
-        // We're going out one!
-      } else {
-        var write = true
-        for(item in currentRestrictions) {
-          if(_.has(query, currentRestrictions[item])) {
-            if(!query[currentRestrictions[item]]) {
-              write = false
-            }
-          } else {
-            write = false
-          }
-        }
-        if (write) {
-          fs.appendFileSync('./storage/' + location + "/" + file.replace('/node/', ''), line + "\n")
-        }
-      }
-    }
-  }
-}
-
-function moreDirectoryHandling(fileList, generateName, callback) {
-  for(file in fileList) {
-    var folder = fileList[file].split("/")
-    // DOES THIS ACTUALLY WORK?  I HONESTLY CAN'T TELL.
-    // I LITERALLY JUST NEED THE SECOND ELEMENT TO THE -1 OR SOMETHING
-    // HENCE, HARDCODED/LUCK?  :)
-    folder = folder.splice(2, folder.length - 3)
-    if (String(folder) != "") {
-      console.log("Created File: " + './storage/' + generateName + "/" + folder.join("/"))
-      mkdirp.sync('./storage/' + generateName + "/" + folder.join("/"))
-    }
-  }
-  callback()
-}
-
-function makeInitialDirectory(callback) {
-  var generateName = makeid()
-  mkdirp('./storage/' + generateName, function(err) { 
-    callback(generateName)
-  });
 }
 
 function makeFileList(query, callback) {
   var fileList = []
   for (field in query) {
     if (_.includes(fileUpdates.allowed, field)) {
-      if (query[field] == "true") {
+      if (query[field]) {
         if (_.has(fileUpdates, field)) {
           fileList = _.union(fileList, fileUpdates[field])
         }
@@ -153,13 +78,81 @@ function makeFileList(query, callback) {
   callback(fileList)
 }
 
-function makeid() {
-  // With 64 characters, our chance of collisions are basically nill. (5x10^114)
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+function createSubdirectories(fileList, identifier, callback) {
+  for(fileIndex in fileList) {
+    var folder = fileList[fileIndex].split("/")
+    folder.shift()
+    folder.shift()
+    folder.pop()
+    if (String(folder) != "") {
+      console.log("Created File: " + './storage/' + identifier + "/" + folder.join("/"))
+      mkdirp.sync('./storage/' + identifier + "/" + folder.join("/"))
+    }
+  }
+  callback()
+}
 
-  for( var i=0; i < 16; i++ )
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+function templateController(fileList, identifier, query, callback) {
+  for(fileIndex in fileList)
+    fileTemplater(fileList[fileIndex], identifier, query)
+  callback()
+}
 
-  return text;
+function fileTemplater(file, identifier, query) {
+  try {
+    fileLocation = './storage/' + identifier + "/" + file.replace('/node/', '')
+    var contents = fs.readFileSync('./templates' + file).toString()
+    fs.closeSync(fs.openSync(fileLocation, 'w'))
+    var fileLines = contents.match(/[^\r\n]+/g)
+    currentRestrictions = []
+
+    for(lineNo in fileLines) {
+      cache = false
+      write = true
+      line = fileLines[lineNo]
+
+      if(line.substring(0, START_BLOCK.length) == START_BLOCK) {
+        currentRestrictions.push(line.split("▓")[1])
+        cache = false
+      } else if(line.substring(0, END_BLOCK.length) == END_BLOCK) {
+        index = currentRestrictions.indexOf(line.split("▓")[1])
+        cache = false
+        if(index > -1)
+          currentRestrictions.splice(index, 1)
+        else
+          console.log("We tried to go out from " + line.split("▓")[1] + " but we couldn't!  It wasn't there.")
+      } else {
+        if(!cache) {
+          var write = true
+          for(item in currentRestrictions) {
+            if(_.has(query, currentRestrictions[item]) || !query[currentRestrictions[item]]) {
+              write = false
+            }
+          }
+        }
+        if (write) {
+          fs.appendFileSync(fileLocation, line + "\n")
+        }
+      }
+    }
+  } catch(e) {
+    if (e.code == "ENOENT") {
+      console.log("File doesn't exist: " + './templates' + file)
+    } else {
+      console.log(e)
+      console.log("Unknown error occured whilst templating" + './templates' + file)
+    }
+  }
+}
+
+function compressFile(identifier, callback) {
+  var zip = new EasyZip()
+  zip.zipFolder('./storage/' + identifier, function() {
+    zip.writeToFile('./static/archives/' + identifier + ".zip")
+  })
+  callback()
+}
+
+function removeTempFiles(identifier, callback) {
+  rimraf("./storage/" + identifier, callback)
 }
