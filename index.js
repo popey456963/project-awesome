@@ -27,8 +27,8 @@ app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
 
-var START_BLOCK = "╔══▓"
-var END_BLOCK =   "╚══▓"
+var START_BLOCK = "#if "
+var END_BLOCK =   "/if "
 
 function generatePackage(query, callback) {
   createDirectory(function(identifier) {
@@ -112,15 +112,15 @@ function fileTemplater(file, identifier, query) {
       line = fileLines[lineNo]
 
       if(line.substring(0, START_BLOCK.length) == START_BLOCK) {
-        currentRestrictions.push(line.split("▓")[1])
+        currentRestrictions.push(line.split(START_BLOCK)[1])
         cache = false
       } else if(line.substring(0, END_BLOCK.length) == END_BLOCK) {
-        index = currentRestrictions.indexOf(line.split("▓")[1])
+        index = currentRestrictions.indexOf(line.split(END_BLOCK)[1])
         cache = false
         if(index > -1)
           currentRestrictions.splice(index, 1)
         else
-          console.log("We tried to go out from " + line.split("▓")[1] + " but we couldn't!  It wasn't there.")
+          console.log("We tried to go out from " + line.split(END_BLOCK)[1] + " but we couldn't!  It wasn't there.")
       } else {
         if(!cache) {
           var write = true
