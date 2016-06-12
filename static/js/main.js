@@ -49,7 +49,7 @@ $(function() {
 				data: options,
 			}).done(function(data) {
 				console.log(data);
-				$("#package").attr("href", data);
+				$("#package").attr("href", "/archives/" + data + ".zip");
 			});
 		}
 
