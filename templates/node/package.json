@@ -11,20 +11,20 @@
     "url": "git+https://github.com/your-name/git-repo.git"
   },
   "author": "",
-  "license": "ISC",-
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/your-name/git-repo/issues"
   },
   "homepage": "https://github.com/your-name/git-repo#readme",
   "dependencies": {
-╔══▓express▓══╗
+#if express
     "express": "^4.13.4",
-╚══▓express▓══╝
-╔══▓lodash▓▓══╗
+/if express
+#if lodash
     "lodash": "^4.13.1",
-╚══▓lodash▓▓══╝
-╔══▓node▓▓▓▓══╗
+/if lodash
+#if node
     "node": "^9.99.9"
-╚══▓node▓▓▓▓══╝
+/if node
   }
 }
