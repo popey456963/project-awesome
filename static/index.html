@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- Basic Page Needs
-		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
 		<meta charset="utf-8">
 		<title>AwesomeProject</title>
 		<meta name="description" content="Bored with taking ages to generate your app environments? Do it automatically here!">
@@ -16,11 +14,11 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="row">
-				<h5 class="hide" id="title">Select your <span id="project-option" class="code">project name</span> for <span id="project-name" class="code"></span></h5>
+			<div class="row text-center">
+				<h5 id="title">Select your <span id="project-option" class="code">project name</span></h5>
 			</div>
-			<div class="row">
-				<form>
+			<form>
+				<div class="row">
 					<div class="twelve columns option" data-option="name" data-index="1">
 						<label for="projectName">Project name</label>
 						<input class="u-full-width" type="text" placeholder="AwesomeProject">
@@ -51,7 +49,7 @@
 					<div class="twelve columns option hidden hide" data-option="js-frameworks" data-index="5">
 						<label for="js-frameworks">Optional JS frameworks</label>
 						<select class="u-full-width" id="js-frameworks">
-							<option value="" selected>--</option>
+							<option value="no-js" selected>--</option>
 							<option value="jquery">jQuery</option>
 							<option value="react">React</option>
 							<option value="angular">AngularJS</option>
@@ -60,7 +58,7 @@
 					<div class="twelve columns option hidden hide" data-option="css-frameworks" data-index="6">
 						<label for="css-frameworks">Optional CSS frameworks</label>
 						<select class="u-full-width" id="css-frameworks">
-							<option value="" selected>--</option>
+							<option value="no-css" selected>--</option>
 							<option value="materialize">Materialize</option>
 							<option value="bootstrap">Bootstrap</option>
 						</select>
@@ -68,7 +66,7 @@
 					<div class="twelve columns option hidden hide" data-option="testing-utilities" data-index="7">
 						<label for="testing-utilities">Optional testing utilities</label>
 						<select class="u-full-width" id="testing-utilities">
-							<option value="" selected>--</option>
+							<option value="no-testing" selected>--</option>
 							<option value="mocha">Mocha</option>
 							<option value="jasmine">Jasmine</option>
 						</select>
@@ -76,18 +74,23 @@
 					<div class="twelve columns option hidden hide" data-option="auth-system" data-index="8">
 						<label for="auth-system">Optional authentication system</label>
 						<select class="u-full-width" id="auth-system">
-							<option value="" selected>--</option>
+							<option value="no-auth" selected>--</option>
 							<option value="passport">PassportJS</option>
 						</select>
 					</div>
 					<div class="twelve columns option hidden hide" data-index="9">
 						<h4>All done! Download your prebuilt package at <a  id="package" href="">the veil of generousity</a></h4>
 					</div>
-					<input class="button-primary" type="submit" value="Submit">
-				</form>
-			</div>
+				</div>
+				<div class="row">
+					<div class="twelve columns text-center">
+						<input class="button-primary" type="submit" value="Next"  style="position: absolute;">
+					</div>
+				</div>
+			</form>
 		</div>
 	</body>
 	<script src="js/jquery-3.0.0.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="http://localhost:8001/vogue-client.js"></script>
 </html>

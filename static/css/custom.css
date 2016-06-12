@@ -7,7 +7,7 @@ body {
   display: none; }
 
 .container {
-  margin-top: 25%; }
+  margin-top: calc((100vh - 134px) / 2); }
 
 .option.hidden {
   -webkit-animation: slide-down 0.4s ease-in-out forwards;
@@ -21,6 +21,8 @@ body {
   -ms-animation: slide-up 0.4s ease-in-out forwards;
   -o-animation: slide-up 0.4s ease-in-out forwards;
   animation: slide-up 0.4s ease-in-out forwards; }
+.option label {
+  display: none; }
 
 .code {
   color: #512DA8;
@@ -30,6 +32,9 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 5px; }
+
+.text-center {
+  text-align: center; }
 
 @-webkit-keyframes slide-down {
   from {
