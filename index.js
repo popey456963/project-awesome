@@ -13,6 +13,7 @@ app.use(express.static('static'))
 app.use(bodyParser.json());
 
 app.post('/getApp', function (req, res) {
+  console.log(req.body)
   for (k in req.body){
     if (req.body[k] === 'true' || req.body[k] === 'false'){
       req.body[k] = Boolean(req.body[k])
