@@ -17,12 +17,10 @@
   },
   "homepage": "https://github.com/popey456963/to-be-named#readme",
   "dependencies": {
-    "archiver": "^1.0.0",
     "body-parser": "^1.15.1",
     "easy-zip": "0.0.4",
     "express": "^4.13.4",
-    "lodash": "^4.13.1",
+    "handlebars": "^4.0.5",
     "mkdirp": "^0.5.1",
-    "rimraf": "^2.5.2"
   }
 }

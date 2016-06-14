@@ -11,9 +11,8 @@ $(function() {
 
 		var input = thisOption.find("input");
 		if (input.length == 0) input = thisOption.find("select");
-		if (thisOption.data("option") != "name") options[input.val()] = true;
-		else options.name = input.val();
-		if (thisOption.data("index") == "8") last = true;
+		options[thisOption.data("option")] = input.val();
+		if (thisOption.data("index") == "11") last = true;
 
 		if (thisOption.data("index") == "1") {
 			$("#title").html('Select your <span id="project-option" class="code">project name</span> for <span id="project-name" class="code"></span>')
